@@ -32,7 +32,7 @@ namespace 内网穿透辅助工具
             //加载隧道自动切换的节点列表
             LoadTunnelNode();
             //设置启用按钮
-            this.checkBox1.Checked = CommonData.config.tunnels[tunnelId].isAutoConnect;
+            this.checkBox1.Checked = ToolData.config.tunnels[tunnelId].isAutoConnect;
         }
         private void SetComboxData()
         {
@@ -43,7 +43,7 @@ namespace 内网穿透辅助工具
         private void Form2_Load(object sender, EventArgs e)
         {
             //加载服务器节点列表
-            List<Node> nodes = CommonData.config.nodes.Values.ToList();
+            List<Node> nodes = ToolData.config.nodes.Values.ToList();
             nodes.Sort();
             this.node_combox.DataSource = nodes;
             
@@ -54,14 +54,14 @@ namespace 内网穿透辅助工具
         private void LoadTunnelNode()
         {
             Dictionary<string, Node> nodes;
-            if (CommonData.config.tunnelNodes.ContainsKey(tunnelId))
+            if (ToolData.config.tunnelNodes.ContainsKey(tunnelId))
             {
-                nodes = CommonData.config.tunnelNodes[tunnelId];
+                nodes = ToolData.config.tunnelNodes[tunnelId];
             }
             else
             {
                 nodes = new Dictionary<string, Node>();
-                CommonData.config.tunnelNodes[tunnelId] = nodes;
+                ToolData.config.tunnelNodes[tunnelId] = nodes;
             }
             List<Node> tempList = nodes.Values.ToList();
             tempList.Sort();
@@ -74,7 +74,7 @@ namespace 内网穿透辅助工具
 
         private void add_button_Click(object sender, EventArgs e)
         {
-            Dictionary<string, Node> nodes = CommonData.config.tunnelNodes[tunnelId];
+            Dictionary<string, Node> nodes = ToolData.config.tunnelNodes[tunnelId];
             int id = Convert.ToInt32(node_combox.SelectedValue);
             string? nodeName = (node_combox.SelectedItem as Node).name;
             if (nodes.ContainsKey(nodeName!))
@@ -88,23 +88,23 @@ namespace 内网穿透辅助工具
             node.level = level;
             nodes.Add(nodeName!, node);
             dt.Rows.Add(node.name, node.level);
-            CommonData.SaveConfig();
+            ToolData.SaveConfig();
         }
 
         private void delete_button_Click(object sender, EventArgs e)
         {
-            Dictionary<string, Node> nodes = CommonData.config.tunnelNodes[tunnelId];
+            Dictionary<string, Node> nodes = ToolData.config.tunnelNodes[tunnelId];
             int index = dataGridView1.SelectedRows[0].Index;
             string nodeName = dataGridView1.SelectedRows[0].Cells[0].Value.ToString();
             nodes.Remove(nodeName!);
             dataGridView1.Rows.RemoveAt(index);
-            CommonData.SaveConfig();
+            ToolData.SaveConfig();
         }
 
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
-            CommonData.config.tunnels[tunnelId].isAutoConnect= checkBox1.Checked;
-            CommonData.SaveConfig();
+            ToolData.config.tunnels[tunnelId].isAutoConnect= checkBox1.Checked;
+            ToolData.SaveConfig();
         }
 
         private void Form2_FormClosed(object sender, FormClosedEventArgs e)
