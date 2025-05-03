@@ -26,8 +26,34 @@ namespace FRPAutoCheckService
         /// 日志文件路径
         /// </summary>
         private static string logFileName = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "log.txt");
-                
 
+        /// <summary>
+        /// 日志内容
+        /// </summary>
+        public static string logText = "";
+        /// <summary>
+        /// 加载日志内容
+        /// </summary>
+        public static void LoadLogText()
+        {
+            if (File.Exists(logFileName))
+            {
+                try
+                {
+                    using (FileStream fs = new FileStream(logFileName, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
+                    {
+                        using (StreamReader sr = new StreamReader(fs, Encoding.UTF8))
+                        {
+                            logText = sr.ReadToEnd();
+                        }
+                    }
+                }
+                catch (Exception)
+                {
+
+                }
+            }
+        }
         /// <summary>
         /// 保存日志
         /// </summary>

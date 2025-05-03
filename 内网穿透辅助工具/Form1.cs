@@ -105,9 +105,9 @@ namespace 内网穿透辅助工具
             }
             int id = (this.mysqlTunnel_combox.SelectedItem as Tunnel).id;
             
-            if (ToolData.config.tunnelMysqlInfos.ContainsKey(id))
+            if (CommonData.config.tunnelMysqlInfos.ContainsKey(id))
             {
-                var t = ToolData.config.tunnelMysqlInfos[id];
+                var t = CommonData.config.tunnelMysqlInfos[id];
                 t.account = account;
                 t.password = password;
                 t.database = database;
@@ -132,9 +132,9 @@ namespace 内网穿透辅助工具
                 t.tunnelIp = (this.mysqlTunnel_combox.SelectedItem as Tunnel).ip;
                 t.where = this.mysqlWhere_textbox.Text.Trim();
                 t.isAuto= this.isAutoMysql_checkbox.Checked;
-                ToolData.config.tunnelMysqlInfos.Add(id, t);
+                CommonData.config.tunnelMysqlInfos.Add(id, t);
             }
-            ToolData.SaveConfig();
+            CommonData.SaveConfig();
         }
         /// <summary>
         /// 加载隧道列表提供数据库配置
@@ -143,7 +143,7 @@ namespace 内网穿透辅助工具
         {
             this.mysqlTunnel_combox.DisplayMember = "name";
             this.mysqlTunnel_combox.ValueMember = "id";
-            List<Tunnel> tunnels = ToolData.config.tunnels.Values.ToList();
+            List<Tunnel> tunnels = CommonData.config.tunnels.Values.ToList();
             this.mysqlTunnel_combox.DataSource = tunnels;
         }
 
@@ -192,7 +192,7 @@ namespace 内网穿透辅助工具
             this.pictureBox1.Visible = true;
             this.dataGridView1.DataSource = null;
             dataTable.Rows.Clear();
-            foreach (var tunnel in ToolData.config.tunnels.Values)
+            foreach (var tunnel in CommonData.config.tunnels.Values)
             {
                 dataTable.Rows.Add(tunnel.id, tunnel.isAutoConnect ? "启用" : "未启用", "加载中",tunnel.type, tunnel.name, tunnel.dorp, tunnel.node, tunnel.ip);
             }
@@ -205,7 +205,7 @@ namespace 内网穿透辅助工具
             this.pictureBox1.Visible = false;
 
             //更新日志内容
-            this.textBox1.Text = ToolData.logText;
+            this.textBox1.Text = CommonData.logText;
             this.textBox1.ScrollToCaret();
             //更新隧道状态
             Task.Run(() => 
@@ -229,7 +229,7 @@ namespace 内网穿透辅助工具
 
 
         /// <summary>
-        /// 保存账号密码
+        /// 登录
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -240,7 +240,7 @@ namespace 内网穿透辅助工具
             user.Username = username;
             user.Password = password;
             commonService.Login(username, password);
-            ToolData.LoadConfig();
+            CommonData.LoadConfig();
             ChangeTunnelData();
         }
 
@@ -249,8 +249,7 @@ namespace 内网穿透辅助工具
         {
             this.pictureBox1.Parent = dataGridView1;
             this.pictureBox1.SendToBack();
-            //更新配置数据到表格和日志
-            ChangeTunnelData();
+            
             //窗体控件自适应
             asc.controllInitializeSize(this);
 
@@ -260,24 +259,27 @@ namespace 内网穿透辅助工具
             {
                 this.username_textbox.Text = user.Username;
                 this.password_textbox.Text = user.Password;
+                button6_Click(sender, e);
             }
 
+            
+
             //加载阿里云ddns配置内容
-            if (!string.IsNullOrEmpty(ToolData.config.aliyunDdns.AccessKeyId))
+            if (!string.IsNullOrEmpty(CommonData.config.aliyunDdns.AccessKeyId))
             {
-                this.aliyunAccessKeyId_textbox.Text = ToolData.config.aliyunDdns.AccessKeyId;
-                this.aliyunAccessKeySecret_textbox.Text = ToolData.config.aliyunDdns.AccessKeySecret;
-                this.isAutoAliyunDDNS_checkbox.Checked = ToolData.config.aliyunDdns.isAuto;
+                this.aliyunAccessKeyId_textbox.Text = CommonData.config.aliyunDdns.AccessKeyId;
+                this.aliyunAccessKeySecret_textbox.Text = CommonData.config.aliyunDdns.AccessKeySecret;
+                this.isAutoAliyunDDNS_checkbox.Checked = CommonData.config.aliyunDdns.isAuto;
             }
 
             //加载邮箱配置内容
-            if (!string.IsNullOrEmpty(ToolData.config.smtpMail.mailSmtpServer))
+            if (!string.IsNullOrEmpty(CommonData.config.smtpMail.mailSmtpServer))
             {
-                this.mailSmtpServer_textbox.Text = ToolData.config.smtpMail.mailSmtpServer;
-                this.mailAccount_textbox.Text = ToolData.config.smtpMail.mailAccount;
-                this.mailPassword_textbox.Text = ToolData.config.smtpMail.mailPassword;
-                this.isAutoMail_checkbox.Checked = ToolData.config.smtpMail.isAuto;
-                this.acceptMail_textbox.Text = ToolData.config.smtpMail.acceptMail;
+                this.mailSmtpServer_textbox.Text = CommonData.config.smtpMail.mailSmtpServer;
+                this.mailAccount_textbox.Text = CommonData.config.smtpMail.mailAccount;
+                this.mailPassword_textbox.Text = CommonData.config.smtpMail.mailPassword;
+                this.isAutoMail_checkbox.Checked = CommonData.config.smtpMail.isAuto;
+                this.acceptMail_textbox.Text = CommonData.config.smtpMail.acceptMail;
             }
 
             //加载数据库内容
@@ -285,9 +287,9 @@ namespace 内网穿透辅助工具
             if (!string.IsNullOrEmpty(this.mysqlTunnel_combox.SelectedValue?.ToString()))
             {
                 int id =Convert.ToInt32(this.mysqlTunnel_combox.SelectedValue);
-                if (ToolData.config.tunnelMysqlInfos.ContainsKey(id))
+                if (CommonData.config.tunnelMysqlInfos.ContainsKey(id))
                 {
-                    var info = ToolData.config.tunnelMysqlInfos[id];
+                    var info = CommonData.config.tunnelMysqlInfos[id];
                     this.mysqlIp_textbox.Text = info.ip;
                     this.mysqlPort_textbox.Text = info.port.ToString();
                     this.mysqlAccount_textbox.Text = info.account;
@@ -307,10 +309,10 @@ namespace 内网穿透辅助工具
             {
                 return;
             }
-            ToolData.config.aliyunDdns.AccessKeyId = this.aliyunAccessKeyId_textbox.Text.Trim();
-            ToolData.config.aliyunDdns.AccessKeySecret = this.aliyunAccessKeySecret_textbox.Text.Trim();
-            ToolData.config.aliyunDdns.isAuto = this.isAutoAliyunDDNS_checkbox.Checked;
-            ToolData.SaveConfig();
+            CommonData.config.aliyunDdns.AccessKeyId = this.aliyunAccessKeyId_textbox.Text.Trim();
+            CommonData.config.aliyunDdns.AccessKeySecret = this.aliyunAccessKeySecret_textbox.Text.Trim();
+            CommonData.config.aliyunDdns.isAuto = this.isAutoAliyunDDNS_checkbox.Checked;
+            CommonData.SaveConfig();
         }
 
         private void button10_Click(object sender, EventArgs e)
@@ -319,12 +321,12 @@ namespace 内网穿透辅助工具
             {
                 return;
             }
-            ToolData.config.smtpMail.mailSmtpServer = this.mailSmtpServer_textbox.Text.Trim();
-            ToolData.config.smtpMail.mailAccount = this.mailAccount_textbox.Text.Trim();
-            ToolData.config.smtpMail.mailPassword = this.mailPassword_textbox.Text.Trim();
-            ToolData.config.smtpMail.acceptMail = this.acceptMail_textbox.Text.Trim();
-            ToolData.config.smtpMail.isAuto = this.isAutoMail_checkbox.Checked;
-            ToolData.SaveConfig();
+            CommonData.config.smtpMail.mailSmtpServer = this.mailSmtpServer_textbox.Text.Trim();
+            CommonData.config.smtpMail.mailAccount = this.mailAccount_textbox.Text.Trim();
+            CommonData.config.smtpMail.mailPassword = this.mailPassword_textbox.Text.Trim();
+            CommonData.config.smtpMail.acceptMail = this.acceptMail_textbox.Text.Trim();
+            CommonData.config.smtpMail.isAuto = this.isAutoMail_checkbox.Checked;
+            CommonData.SaveConfig();
         }
 
         private void Form1_SizeChanged(object sender, EventArgs e)
@@ -347,15 +349,17 @@ namespace 内网穿透辅助工具
 
         private void button7_Click(object sender, EventArgs e)
         {
-            ToolData.LoadConfig();
+            //更新隧道列表
+            commonService.LoadTunnelList();
+            CommonData.LoadConfig();
             ChangeTunnelData();
         }
 
         private void button11_Click(object sender, EventArgs e)
         {
-            ToolData.LoadLogText();
+            CommonData.LoadLogText();
             //更新日志内容
-            this.textBox1.Text = ToolData.logText;
+            this.textBox1.Text = CommonData.logText;
             this.textBox1.ScrollToCaret();
         }
 
@@ -369,9 +373,9 @@ namespace 内网穿透辅助工具
             if (!string.IsNullOrEmpty(this.mysqlTunnel_combox.SelectedValue?.ToString()))
             {
                 int id = Convert.ToInt32(this.mysqlTunnel_combox.SelectedValue);
-                if (ToolData.config.tunnelMysqlInfos.ContainsKey(id))
+                if (CommonData.config.tunnelMysqlInfos.ContainsKey(id))
                 {
-                    var info = ToolData.config.tunnelMysqlInfos[id];
+                    var info = CommonData.config.tunnelMysqlInfos[id];
                     this.mysqlIp_textbox.Text = info.ip;
                     this.mysqlPort_textbox.Text = info.port.ToString();
                     this.mysqlAccount_textbox.Text = info.account;

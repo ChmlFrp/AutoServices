@@ -539,6 +539,10 @@ namespace FRPAutoCheckService
             if (state == "success")
             {
                 JArray jArray = respJson["data"] as JArray;
+                //保存临时隧道列表
+                var tempTunnels = CommonData.config.tunnels.ToDictionary(k=>k.Key,v=>v.Value);
+                //清空隧道列表
+                CommonData.config.tunnels.Clear();
                 foreach (var item in jArray)
                 {
                     Tunnel tunnel = new Tunnel();
@@ -551,18 +555,15 @@ namespace FRPAutoCheckService
                     tunnel.node = item["node"].ToString();
                     tunnel.nodestate = item["nodestate"].ToString();
                     tunnel.ip = item["ip"].ToString();
-                    if (CommonData.config.tunnels.ContainsKey(tunnel.id))
+
+                    if (tempTunnels.ContainsKey(tunnel.id))
                     {
-                        Tunnel temp = CommonData.config.tunnels[tunnel.id];
+                        Tunnel temp = tempTunnels[tunnel.id];
                         //添加本地自定义属性
                         tunnel.pid = temp.pid;
                         tunnel.isAutoConnect = temp.isAutoConnect;
-                        CommonData.config.tunnels[tunnel.id] = tunnel;
                     }
-                    else
-                    {
-                        CommonData.config.tunnels.Add(tunnel.id, tunnel);
-                    }
+                    CommonData.config.tunnels.Add(tunnel.id, tunnel);
                     
                 }
                 //保存配置文件

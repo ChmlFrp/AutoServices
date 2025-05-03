@@ -15,6 +15,7 @@ namespace 内网穿透辅助工具
     {
         DataTable dt;
         int tunnelId;
+        CommonService commonService = new CommonService();
         public Form2()
         {
             InitializeComponent();
@@ -32,7 +33,7 @@ namespace 内网穿透辅助工具
             //加载隧道自动切换的节点列表
             LoadTunnelNode();
             //设置启用按钮
-            this.checkBox1.Checked = ToolData.config.tunnels[tunnelId].isAutoConnect;
+            this.checkBox1.Checked = CommonData.config.tunnels[tunnelId].isAutoConnect;
         }
         private void SetComboxData()
         {
@@ -43,25 +44,34 @@ namespace 内网穿透辅助工具
         private void Form2_Load(object sender, EventArgs e)
         {
             //加载服务器节点列表
-            List<Node> nodes = ToolData.config.nodes.Values.ToList();
+            LoadNodeList();
+        }
+        /// <summary>
+        /// 加载服务器节点列表
+        /// </summary>
+        private void LoadNodeList()
+        {
+            CommonData.LoadConfig();
+            //加载服务器节点列表
+            List<Node> nodes = CommonData.config.nodes.Values.ToList();
             nodes.Sort();
             this.node_combox.DataSource = nodes;
-            
         }
         /// <summary>
         /// 加载切换节点列表
         /// </summary>
         private void LoadTunnelNode()
         {
+            dt.Clear();
             Dictionary<string, Node> nodes;
-            if (ToolData.config.tunnelNodes.ContainsKey(tunnelId))
+            if (CommonData.config.tunnelNodes.ContainsKey(tunnelId))
             {
-                nodes = ToolData.config.tunnelNodes[tunnelId];
+                nodes = CommonData.config.tunnelNodes[tunnelId];
             }
             else
             {
                 nodes = new Dictionary<string, Node>();
-                ToolData.config.tunnelNodes[tunnelId] = nodes;
+                CommonData.config.tunnelNodes[tunnelId] = nodes;
             }
             List<Node> tempList = nodes.Values.ToList();
             tempList.Sort();
@@ -71,10 +81,14 @@ namespace 内网穿透辅助工具
             }
 
         }
-
+        /// <summary>
+        /// 添加
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void add_button_Click(object sender, EventArgs e)
         {
-            Dictionary<string, Node> nodes = ToolData.config.tunnelNodes[tunnelId];
+            Dictionary<string, Node> nodes = CommonData.config.tunnelNodes[tunnelId];
             int id = Convert.ToInt32(node_combox.SelectedValue);
             string? nodeName = (node_combox.SelectedItem as Node).name;
             if (nodes.ContainsKey(nodeName!))
@@ -88,23 +102,31 @@ namespace 内网穿透辅助工具
             node.level = level;
             nodes.Add(nodeName!, node);
             dt.Rows.Add(node.name, node.level);
-            ToolData.SaveConfig();
+            CommonData.SaveConfig();
         }
-
+        /// <summary>
+        /// 删除
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void delete_button_Click(object sender, EventArgs e)
         {
-            Dictionary<string, Node> nodes = ToolData.config.tunnelNodes[tunnelId];
+            Dictionary<string, Node> nodes = CommonData.config.tunnelNodes[tunnelId];
             int index = dataGridView1.SelectedRows[0].Index;
             string nodeName = dataGridView1.SelectedRows[0].Cells[0].Value.ToString();
             nodes.Remove(nodeName!);
             dataGridView1.Rows.RemoveAt(index);
-            ToolData.SaveConfig();
+            CommonData.SaveConfig();
         }
-
+        /// <summary>
+        /// 启用隧道
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
-            ToolData.config.tunnels[tunnelId].isAutoConnect= checkBox1.Checked;
-            ToolData.SaveConfig();
+            CommonData.config.tunnels[tunnelId].isAutoConnect= checkBox1.Checked;
+            CommonData.SaveConfig();
         }
 
         private void Form2_FormClosed(object sender, FormClosedEventArgs e)
@@ -112,7 +134,16 @@ namespace 内网穿透辅助工具
             //添加接收隧道ID的事件
             Program.MainForm.OnSetTunnelNode -= SetTunnelId;
         }
-
-        
+        /// <summary>
+        /// 刷新节点列表
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void button1_Click(object sender, EventArgs e)
+        {
+            commonService.LoadNodeList();
+            LoadNodeList();
+            LoadTunnelNode();
+        }
     }
 }

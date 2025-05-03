@@ -12,39 +12,17 @@ namespace 内网穿透辅助工具
     public delegate void ChangeTunnelData();
     public class ToolService
     {
-
         public event ChangeTunnelData OnChangeTunnelData;
-        public  System.Timers.Timer? timer;
-
         string serviceFilePath = Path.Combine(Application.StartupPath, "FRPAutoCheckService.exe");
         string serviceName = "内网穿透辅助服务";
 
         public ToolService()
         {
             OnChangeTunnelData += () =>{};
-            ToolData.LoadConfig();
-            ToolData.LoadLogText();
-            timer = new System.Timers.Timer();
-            timer.Elapsed += new System.Timers.ElapsedEventHandler(OnTimerTriggle);
-            timer.Interval = 1000*60*10;//每10分钟自动检测一次;
-            timer.AutoReset = true;//一直循环
-            timer.Enabled = true;//开启
+            CommonData.LoadConfig();
+            CommonData.LoadLogText();
         }
-       
-        /// <summary>
-        /// 定时执行任务,检测隧道是否在线,如果不在线则检测服务器节点状态,如果节点离线则自动切换.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void OnTimerTriggle(object? sender, System.Timers.ElapsedEventArgs e)
-        {
-            //更新日志
-            ToolData.LoadLogText();
-            //更新配置文件
-            ToolData.LoadConfig();
-            //每分钟更新隧道列表和日志数据
-            OnChangeTunnelData.Invoke();
-        }
+        
         /// <summary>
         /// 根据域名获取IP地址
         /// </summary>
@@ -176,6 +154,9 @@ namespace 内网穿透辅助工具
                 ServiceStop(serviceName);
             }
         }
+        /// <summary>
+        /// 卸载服务
+        /// </summary>
         public void UninstallService()
         {
             if (IsServiceExisted(serviceName))

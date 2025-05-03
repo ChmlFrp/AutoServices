@@ -11,10 +11,8 @@ namespace FRPAutoCheckService
         
         //用户id
         public int userId;
-        //是否自动登录
-        public bool isAutoLogin;
-        //是否自动启动软件
-        public bool isAutoLoad;
+        
+        
         //阿里云ddns
         public AliyunDdns aliyunDdns;
         //smtp邮箱配置
@@ -86,6 +84,7 @@ namespace FRPAutoCheckService
         public string ip;
         public int pid;
         public bool isAutoConnect;
+        
     }
     public class Node:IComparable<Node>
     {

@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("内网穿透辅助工具")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+b0e0c978e51b35ba2c04e964772f72cba89c025c")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+f13b82c4d1f4f76ad479860e3ce76fc362aa9a61")]
 [assembly: System.Reflection.AssemblyProductAttribute("内网穿透辅助工具")]
 [assembly: System.Reflection.AssemblyTitleAttribute("内网穿透辅助工具")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
