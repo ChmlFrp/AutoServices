@@ -83,7 +83,7 @@ namespace 内网穿透辅助工具
             }
             else if (type == "tcp" || type == "udp")
             {
-                if (CheckVisit(GetIP(ip!), Convert.ToInt16(dorp!)))
+                if (CheckVisit(GetIP(ip!), Convert.ToInt32(dorp!)))
                 {
                     return true;
                 }

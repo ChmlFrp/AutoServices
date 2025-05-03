@@ -3,6 +3,14 @@
   "WorkspaceRootPath": "F:\\vs_projects\\studycSharp\\\u5185\u7F51\u7A7F\u900F\u8F85\u52A9\u5DE5\u5177\\\u5185\u7F51\u7A7F\u900F\u8F85\u52A9\u5DE5\u5177\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{79077E1B-DC36-470A-B29A-32F75D823242}|\u5185\u7F51\u7A7F\u900F\u8F85\u52A9\u5DE5\u5177.csproj|f:\\vs_projects\\studycsharp\\\u5185\u7F51\u7A7F\u900F\u8F85\u52A9\u5DE5\u5177\\\u5185\u7F51\u7A7F\u900F\u8F85\u52A9\u5DE5\u5177\\toolservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{79077E1B-DC36-470A-B29A-32F75D823242}|\u5185\u7F51\u7A7F\u900F\u8F85\u52A9\u5DE5\u5177.csproj|solutionrelative:toolservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{79077E1B-DC36-470A-B29A-32F75D823242}|\u5185\u7F51\u7A7F\u900F\u8F85\u52A9\u5DE5\u5177.csproj|F:\\vs_projects\\studycSharp\\\u5185\u7F51\u7A7F\u900F\u8F85\u52A9\u5DE5\u5177\\\u5185\u7F51\u7A7F\u900F\u8F85\u52A9\u5DE5\u5177\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{79077E1B-DC36-470A-B29A-32F75D823242}|\u5185\u7F51\u7A7F\u900F\u8F85\u52A9\u5DE5\u5177.csproj|solutionrelative:form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{75D8C84D-A81E-49FE-9BB9-BFE4D64437CF}|..\\FRPAutoCheckService\\FRPAutoCheckService.csproj|f:\\vs_projects\\studycsharp\\\u5185\u7F51\u7A7F\u900F\u8F85\u52A9\u5DE5\u5177\\frpautocheckservice\\commonservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
@@ -12,14 +20,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{79077E1B-DC36-470A-B29A-32F75D823242}|\u5185\u7F51\u7A7F\u900F\u8F85\u52A9\u5DE5\u5177.csproj|f:\\vs_projects\\studycsharp\\\u5185\u7F51\u7A7F\u900F\u8F85\u52A9\u5DE5\u5177\\\u5185\u7F51\u7A7F\u900F\u8F85\u52A9\u5DE5\u5177\\tooldata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{79077E1B-DC36-470A-B29A-32F75D823242}|\u5185\u7F51\u7A7F\u900F\u8F85\u52A9\u5DE5\u5177.csproj|solutionrelative:tooldata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{79077E1B-DC36-470A-B29A-32F75D823242}|\u5185\u7F51\u7A7F\u900F\u8F85\u52A9\u5DE5\u5177.csproj|f:\\vs_projects\\studycsharp\\\u5185\u7F51\u7A7F\u900F\u8F85\u52A9\u5DE5\u5177\\\u5185\u7F51\u7A7F\u900F\u8F85\u52A9\u5DE5\u5177\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{79077E1B-DC36-470A-B29A-32F75D823242}|\u5185\u7F51\u7A7F\u900F\u8F85\u52A9\u5DE5\u5177.csproj|solutionrelative:form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{79077E1B-DC36-470A-B29A-32F75D823242}|\u5185\u7F51\u7A7F\u900F\u8F85\u52A9\u5DE5\u5177.csproj|f:\\vs_projects\\studycsharp\\\u5185\u7F51\u7A7F\u900F\u8F85\u52A9\u5DE5\u5177\\\u5185\u7F51\u7A7F\u900F\u8F85\u52A9\u5DE5\u5177\\toolservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{79077E1B-DC36-470A-B29A-32F75D823242}|\u5185\u7F51\u7A7F\u900F\u8F85\u52A9\u5DE5\u5177.csproj|solutionrelative:toolservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{79077E1B-DC36-470A-B29A-32F75D823242}|\u5185\u7F51\u7A7F\u900F\u8F85\u52A9\u5DE5\u5177.csproj|F:\\vs_projects\\studycSharp\\\u5185\u7F51\u7A7F\u900F\u8F85\u52A9\u5DE5\u5177\\\u5185\u7F51\u7A7F\u900F\u8F85\u52A9\u5DE5\u5177\\form2.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
@@ -54,9 +54,6 @@
       "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|F:\\vs_projects\\studycSharp\\FRPAutoCheckService\\Program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|F:\\vs_projects\\studycSharp\\FRPAutoCheckService\\AutoCheckService.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|F:\\vs_projects\\studycSharp\\FRPAutoCheckService\\ProjectInstaller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
@@ -67,7 +64,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 6,
+          "SelectedChildIndex": 3,
           "Children": [
             {
               "$type": "Bookmark",
@@ -75,19 +72,18 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 1,
               "Title": "Form1.cs [\u8BBE\u8BA1]",
               "DocumentMoniker": "F:\\vs_projects\\studycSharp\\\u5185\u7F51\u7A7F\u900F\u8F85\u52A9\u5DE5\u5177\\\u5185\u7F51\u7A7F\u900F\u8F85\u52A9\u5DE5\u5177\\Form1.cs",
               "RelativeDocumentMoniker": "Form1.cs",
               "ToolTip": "F:\\vs_projects\\studycSharp\\\u5185\u7F51\u7A7F\u900F\u8F85\u52A9\u5DE5\u5177\\\u5185\u7F51\u7A7F\u900F\u8F85\u52A9\u5DE5\u5177\\Form1.cs [\u8BBE\u8BA1]",
               "RelativeToolTip": "Form1.cs [\u8BBE\u8BA1]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-02T12:42:41.253Z",
-              "EditorCaption": " [\u8BBE\u8BA1]"
+              "WhenOpened": "2025-05-02T12:42:41.253Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 3,
               "Title": "Form1.cs",
               "DocumentMoniker": "F:\\vs_projects\\studycSharp\\\u5185\u7F51\u7A7F\u900F\u8F85\u52A9\u5DE5\u5177\\\u5185\u7F51\u7A7F\u900F\u8F85\u52A9\u5DE5\u5177\\Form1.cs",
               "RelativeDocumentMoniker": "Form1.cs",
@@ -95,25 +91,24 @@
               "RelativeToolTip": "Form1.cs",
               "ViewState": "AgIAAM8AAAAAAAAAAAAewPEAAAAfAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-26T11:40:39.099Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-01-26T11:40:39.099Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 0,
               "Title": "ToolService.cs",
               "DocumentMoniker": "F:\\vs_projects\\studycSharp\\\u5185\u7F51\u7A7F\u900F\u8F85\u52A9\u5DE5\u5177\\\u5185\u7F51\u7A7F\u900F\u8F85\u52A9\u5DE5\u5177\\ToolService.cs",
               "RelativeDocumentMoniker": "ToolService.cs",
               "ToolTip": "F:\\vs_projects\\studycSharp\\\u5185\u7F51\u7A7F\u900F\u8F85\u52A9\u5DE5\u5177\\\u5185\u7F51\u7A7F\u900F\u8F85\u52A9\u5DE5\u5177\\ToolService.cs",
               "RelativeToolTip": "ToolService.cs",
-              "ViewState": "AgIAACIAAAAAAAAAAAAewEAAAAAUAAAAAAAAAA==",
+              "ViewState": "AgIAAFMAAAAAAAAAAAAUwG0AAAAMAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-05-02T12:40:04.707Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 4,
               "Title": "ToolData.cs",
               "DocumentMoniker": "F:\\vs_projects\\studycSharp\\\u5185\u7F51\u7A7F\u900F\u8F85\u52A9\u5DE5\u5177\\\u5185\u7F51\u7A7F\u900F\u8F85\u52A9\u5DE5\u5177\\ToolData.cs",
               "RelativeDocumentMoniker": "ToolData.cs",
@@ -121,8 +116,7 @@
               "RelativeToolTip": "ToolData.cs",
               "ViewState": "AgIAAB0AAAAAAAAAAAAewDsAAAAbAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-02T12:37:36.27Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-02T12:37:36.27Z"
             },
             {
               "$type": "Document",
@@ -133,21 +127,19 @@
               "ToolTip": "F:\\vs_projects\\studycSharp\\\u5185\u7F51\u7A7F\u900F\u8F85\u52A9\u5DE5\u5177\\FRPAutoCheckService\\ProjectInstaller.cs [\u8BBE\u8BA1]",
               "RelativeToolTip": "..\\FRPAutoCheckService\\ProjectInstaller.cs [\u8BBE\u8BA1]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-02T12:37:28.481Z",
-              "EditorCaption": " [\u8BBE\u8BA1]"
+              "WhenOpened": "2025-05-02T12:37:28.481Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 2,
               "Title": "CommonService.cs",
               "DocumentMoniker": "F:\\vs_projects\\studycSharp\\\u5185\u7F51\u7A7F\u900F\u8F85\u52A9\u5DE5\u5177\\FRPAutoCheckService\\CommonService.cs",
               "RelativeDocumentMoniker": "..\\FRPAutoCheckService\\CommonService.cs",
               "ToolTip": "F:\\vs_projects\\studycSharp\\\u5185\u7F51\u7A7F\u900F\u8F85\u52A9\u5DE5\u5177\\FRPAutoCheckService\\CommonService.cs",
               "RelativeToolTip": "..\\FRPAutoCheckService\\CommonService.cs",
-              "ViewState": "AgIAALQBAAAAAAAAAAAewMwBAAAUAAAAAAAAAA==",
+              "ViewState": "AgIAAEsAAAAAAAAAAAAewIoAAAAiAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-26T12:13:59.248Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-04-26T12:13:59.248Z"
             },
             {
               "$type": "Document",
@@ -188,18 +180,6 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 14,
-              "Title": "AutoCheckService.cs",
-              "DocumentMoniker": "F:\\vs_projects\\studycSharp\\FRPAutoCheckService\\AutoCheckService.cs",
-              "RelativeDocumentMoniker": "..\\..\\FRPAutoCheckService\\AutoCheckService.cs",
-              "ToolTip": "F:\\vs_projects\\studycSharp\\FRPAutoCheckService\\AutoCheckService.cs",
-              "RelativeToolTip": "..\\..\\FRPAutoCheckService\\AutoCheckService.cs",
-              "ViewState": "AgIAAAoAAAAAAAAAAAAIwBUAAAArAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-26T10:11:51.119Z"
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 5,
               "Title": "Form2.cs [\u8BBE\u8BA1]",
               "DocumentMoniker": "F:\\vs_projects\\studycSharp\\\u5185\u7F51\u7A7F\u900F\u8F85\u52A9\u5DE5\u5177\\\u5185\u7F51\u7A7F\u900F\u8F85\u52A9\u5DE5\u5177\\Form2.cs",
@@ -207,8 +187,7 @@
               "ToolTip": "F:\\vs_projects\\studycSharp\\\u5185\u7F51\u7A7F\u900F\u8F85\u52A9\u5DE5\u5177\\\u5185\u7F51\u7A7F\u900F\u8F85\u52A9\u5DE5\u5177\\Form2.cs [\u8BBE\u8BA1]",
               "RelativeToolTip": "Form2.cs [\u8BBE\u8BA1]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-27T05:57:29.195Z",
-              "EditorCaption": " [\u8BBE\u8BA1]"
+              "WhenOpened": "2025-01-27T05:57:29.195Z"
             },
             {
               "$type": "Document",
@@ -220,8 +199,7 @@
               "RelativeToolTip": "Form1.Designer.cs",
               "ViewState": "AgIAABYAAAAAAAAAAAAcwBYAAAAIAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-26T11:50:45.505Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-01-26T11:50:45.505Z"
             },
             {
               "$type": "Document",
@@ -233,8 +211,7 @@
               "RelativeToolTip": "Program.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAABBAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-26T11:41:46.351Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-01-26T11:41:46.351Z"
             },
             {
               "$type": "Document",
@@ -257,17 +234,16 @@
               "RelativeToolTip": "Form2.Designer.cs",
               "ViewState": "AgIAAK8AAAAAAAAAAAAxwMMAAABAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-27T05:58:04.025Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-01-27T05:58:04.025Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 15,
+              "DocumentIndex": 14,
               "Title": "ProjectInstaller.cs",
-              "DocumentMoniker": "F:\\vs_projects\\studycSharp\\FRPAutoCheckService\\ProjectInstaller.cs",
-              "RelativeDocumentMoniker": "..\\..\\FRPAutoCheckService\\ProjectInstaller.cs",
-              "ToolTip": "F:\\vs_projects\\studycSharp\\FRPAutoCheckService\\ProjectInstaller.cs",
-              "RelativeToolTip": "..\\..\\FRPAutoCheckService\\ProjectInstaller.cs",
+              "DocumentMoniker": "F:\\vs_projects\\studycSharp\\\u5185\u7F51\u7A7F\u900F\u8F85\u52A9\u5DE5\u5177\\FRPAutoCheckService\\ProjectInstaller.cs",
+              "RelativeDocumentMoniker": "..\\FRPAutoCheckService\\ProjectInstaller.cs",
+              "ToolTip": "F:\\vs_projects\\studycSharp\\\u5185\u7F51\u7A7F\u900F\u8F85\u52A9\u5DE5\u5177\\FRPAutoCheckService\\ProjectInstaller.cs",
+              "RelativeToolTip": "..\\FRPAutoCheckService\\ProjectInstaller.cs",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-01-26T10:30:42.222Z"
             }

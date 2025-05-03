@@ -78,12 +78,12 @@ namespace FRPAutoCheckService
                 {
                     if (!tunnel.isAutoConnect)//如果不自动连接
                     {
-                        CommonData.PrintLog("隧道 " + tunnel.name + " 不自动连接!");
+                        //CommonData.PrintLog("隧道 " + tunnel.name + " 不自动连接!");
                         continue;
                     }
                     if (CheckVisit(tunnel))//如果可以正常访问
                     {
-                        CommonData.PrintLog("隧道 " + tunnel.name + " 正常访问!");
+                        //CommonData.PrintLog("隧道 " + tunnel.name + " 正常访问!");
                         continue;
                     }
 
@@ -101,6 +101,10 @@ namespace FRPAutoCheckService
                         {
                             //如果隧道节点离线,则自动切换节点
                             CommonData.PrintLog("隧道 " + tunnel.name+":"+tunnel.node + " 节点离线,开始切换节点!");
+                            if (CommonData.config.tunnelNodes.Count==0)
+                            {
+                                continue;
+                            }
                             //按照优先级修改隧道节点
                             List<Node> nodes = CommonData.config.tunnelNodes?[tunnel.id]?.Values?.ToList();
                             if (nodes != null)
@@ -132,7 +136,7 @@ namespace FRPAutoCheckService
                             if (CommonData.config.aliyunDdns.isAuto)
                             {
                                 //如果是http或https类型的隧道,则更新阿里云ddns解析
-                                CommonData.PrintLog("隧道 " + tunnel.name + ":" + tunnel.node + " 节点更新阿里云ddns解析!");
+                                //CommonData.PrintLog("隧道 " + tunnel.name + ":" + tunnel.node + " 节点更新阿里云ddns解析!");
                                 UpdateAliyunDdns(tunnel.dorp!, tunnel.ip!);
                             }
                         }
@@ -145,7 +149,7 @@ namespace FRPAutoCheckService
                 {
                     if (mysqlInfo.isAuto)
                     {
-                        CommonData.PrintLog("隧道 " + mysqlInfo.tunnelIp + " 节点更新数据库!");
+                        //CommonData.PrintLog("隧道 " + mysqlInfo.tunnelIp + " 节点更新数据库!");
                         UpdateMysqlByIp(mysqlInfo);
                     }
                     
