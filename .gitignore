@@ -1,3 +1,6 @@
-.vs/
-packages/
-bin/
+内网穿透辅助工具/.vs/
+内网穿透辅助工具/packages/
+内网穿透辅助工具/bin/
+内网穿透辅助工具/obj/
+FRPAutoCheckService/bin/
+FRPAutoCheckService/obj/
