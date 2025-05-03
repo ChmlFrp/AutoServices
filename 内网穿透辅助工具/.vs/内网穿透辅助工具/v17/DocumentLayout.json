@@ -3,16 +3,11 @@
   "WorkspaceRootPath": "F:\\vs_projects\\studycSharp\\\u5185\u7F51\u7A7F\u900F\u8F85\u52A9\u5DE5\u5177\\\u5185\u7F51\u7A7F\u900F\u8F85\u52A9\u5DE5\u5177\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|F:\\vs_projects\\studycSharp\\FRPAutoCheckService\\User.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{75D8C84D-A81E-49FE-9BB9-BFE4D64437CF}|..\\FRPAutoCheckService\\FRPAutoCheckService.csproj|f:\\vs_projects\\studycsharp\\\u5185\u7F51\u7A7F\u900F\u8F85\u52A9\u5DE5\u5177\\frpautocheckservice\\commonservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|F:\\vs_projects\\studycSharp\\FRPAutoCheckService\\CommonData.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|F:\\vs_projects\\studycSharp\\FRPAutoCheckService\\Program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|F:\\vs_projects\\studycSharp\\FRPAutoCheckService\\ProjectInstaller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{79077E1B-DC36-470A-B29A-32F75D823242}|\u5185\u7F51\u7A7F\u900F\u8F85\u52A9\u5DE5\u5177.csproj|f:\\vs_projects\\studycsharp\\\u5185\u7F51\u7A7F\u900F\u8F85\u52A9\u5DE5\u5177\\\u5185\u7F51\u7A7F\u900F\u8F85\u52A9\u5DE5\u5177\\toolservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{79077E1B-DC36-470A-B29A-32F75D823242}|\u5185\u7F51\u7A7F\u900F\u8F85\u52A9\u5DE5\u5177.csproj|solutionrelative:toolservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -31,46 +26,28 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "User.cs",
-              "DocumentMoniker": "F:\\vs_projects\\studycSharp\\FRPAutoCheckService\\User.cs",
-              "RelativeDocumentMoniker": "..\\..\\FRPAutoCheckService\\User.cs",
-              "ToolTip": "F:\\vs_projects\\studycSharp\\FRPAutoCheckService\\User.cs",
-              "RelativeToolTip": "..\\..\\FRPAutoCheckService\\User.cs",
+              "Title": "CommonService.cs",
+              "DocumentMoniker": "F:\\vs_projects\\studycSharp\\\u5185\u7F51\u7A7F\u900F\u8F85\u52A9\u5DE5\u5177\\FRPAutoCheckService\\CommonService.cs",
+              "RelativeDocumentMoniker": "..\\FRPAutoCheckService\\CommonService.cs",
+              "ToolTip": "F:\\vs_projects\\studycSharp\\\u5185\u7F51\u7A7F\u900F\u8F85\u52A9\u5DE5\u5177\\FRPAutoCheckService\\CommonService.cs",
+              "RelativeToolTip": "..\\FRPAutoCheckService\\CommonService.cs",
+              "ViewState": "AgIAAAQBAAAAAAAAAAAwwBQBAAAQAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-26T09:34:19.625Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "Program.cs",
-              "DocumentMoniker": "F:\\vs_projects\\studycSharp\\FRPAutoCheckService\\Program.cs",
-              "RelativeDocumentMoniker": "..\\..\\FRPAutoCheckService\\Program.cs",
-              "ToolTip": "F:\\vs_projects\\studycSharp\\FRPAutoCheckService\\Program.cs",
-              "RelativeToolTip": "..\\..\\FRPAutoCheckService\\Program.cs",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-26T10:26:28.063Z"
+              "WhenOpened": "2025-05-03T06:51:08.193Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "CommonData.cs",
-              "DocumentMoniker": "F:\\vs_projects\\studycSharp\\FRPAutoCheckService\\CommonData.cs",
-              "RelativeDocumentMoniker": "..\\..\\FRPAutoCheckService\\CommonData.cs",
-              "ToolTip": "F:\\vs_projects\\studycSharp\\FRPAutoCheckService\\CommonData.cs",
-              "RelativeToolTip": "..\\..\\FRPAutoCheckService\\CommonData.cs",
+              "Title": "ToolService.cs",
+              "DocumentMoniker": "F:\\vs_projects\\studycSharp\\\u5185\u7F51\u7A7F\u900F\u8F85\u52A9\u5DE5\u5177\\\u5185\u7F51\u7A7F\u900F\u8F85\u52A9\u5DE5\u5177\\ToolService.cs",
+              "RelativeDocumentMoniker": "ToolService.cs",
+              "ToolTip": "F:\\vs_projects\\studycSharp\\\u5185\u7F51\u7A7F\u900F\u8F85\u52A9\u5DE5\u5177\\\u5185\u7F51\u7A7F\u900F\u8F85\u52A9\u5DE5\u5177\\ToolService.cs",
+              "RelativeToolTip": "ToolService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABgAAAAHAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-26T11:08:55.184Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "ProjectInstaller.cs",
-              "DocumentMoniker": "F:\\vs_projects\\studycSharp\\\u5185\u7F51\u7A7F\u900F\u8F85\u52A9\u5DE5\u5177\\FRPAutoCheckService\\ProjectInstaller.cs",
-              "RelativeDocumentMoniker": "..\\FRPAutoCheckService\\ProjectInstaller.cs",
-              "ToolTip": "F:\\vs_projects\\studycSharp\\\u5185\u7F51\u7A7F\u900F\u8F85\u52A9\u5DE5\u5177\\FRPAutoCheckService\\ProjectInstaller.cs",
-              "RelativeToolTip": "..\\FRPAutoCheckService\\ProjectInstaller.cs",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-26T10:30:42.222Z"
+              "WhenOpened": "2025-05-03T06:50:19.111Z",
+              "EditorCaption": ""
             }
           ]
         }

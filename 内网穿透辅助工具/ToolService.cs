@@ -15,25 +15,12 @@ namespace 内网穿透辅助工具
         public event ChangeTunnelData OnChangeTunnelData;
         string serviceFilePath = Path.Combine(Application.StartupPath, "FRPAutoCheckService.exe");
         string serviceName = "内网穿透辅助服务";
-
+        private CommonService commonService = new CommonService();
         public ToolService()
         {
             OnChangeTunnelData += () =>{};
             CommonData.LoadConfig();
             CommonData.LoadLogText();
-        }
-        
-        /// <summary>
-        /// 根据域名获取IP地址
-        /// </summary>
-        /// <param name="domainName"></param>
-        /// <returns></returns>
-        private string GetIP(string domainName)
-        {
-            domainName = domainName.Replace("http://", "").Replace("https://", "");
-            IPHostEntry entry = Dns.GetHostEntry(domainName);
-            IPEndPoint point = new IPEndPoint(entry.AddressList[0], 0);
-            return point.Address.ToString();
         }
         /// <summary>
         /// 检测隧道是否连通
@@ -42,87 +29,9 @@ namespace 内网穿透辅助工具
         /// <returns></returns>
         public bool CheckVisit(string type,string ip,string dorp)
         {
-            if (type == "http" || type == "https")
-            {
-                string url = "";
-                if (type == "http")
-                {
-                    url = "http://" + dorp;
-                }
-                else
-                {
-                    url = "https://" + dorp;
-                }
-                if (CheckVisit(url))
-                {
-                    return true;
-                }
-
-            }
-            else if (type == "tcp" || type == "udp")
-            {
-                if (CheckVisit(GetIP(ip!), Convert.ToInt32(dorp!)))
-                {
-                    return true;
-                }
-            }
-            return false;
+            return commonService.CheckVisit(new Tunnel { type=type,ip=ip,dorp=dorp});
         }
-        /// <summary>
-        /// 检测ip:端口是否连通
-        /// </summary>
-        /// <param name="ip"></param>
-        /// <param name="port"></param>
-        /// <returns></returns>
-        private bool CheckVisit(string ip, int port)
-        {
-            TcpClient tcp = null;
-            try
-            {
-                var ipa = IPAddress.Parse(ip);
-                var point = new IPEndPoint(ipa, port);
-                tcp = new TcpClient();
-                tcp.Connect(point);
-                return true;
-            }
-            catch (Exception)
-            {
-                return false;
-            }
-            finally
-            {
-                if (tcp != null)
-                {
-                    tcp.Close();
-                }
-            }
-        }
-        /// <summary>
-        /// 检测网址是否连通
-        /// </summary>
-        /// <param name="url"></param>
-        /// <returns></returns>
-        private bool CheckVisit(string url)
-        {
-            try
-            {
-                var handler = new HttpClientHandler();
-                handler.ServerCertificateCustomValidationCallback += (a, b, c, d) => true;
-                handler.SslProtocols = System.Security.Authentication.SslProtocols.None;
-                HttpClient req = new HttpClient(handler);
-                req.Timeout = TimeSpan.FromSeconds(3);
-                var resp = req.GetAsync(url).Result;
-                if (resp.StatusCode != HttpStatusCode.NotFound)
-                {
-                    return true;
-                }
-                return false;
-            }
-            catch (Exception)
-            {
-                return false;
-            }
-        }
+       
         /// <summary>
         /// 安装服务
         /// </summary>

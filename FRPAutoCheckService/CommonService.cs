@@ -196,7 +196,7 @@ namespace FRPAutoCheckService
             }
             else if (tunnel.type == "tcp" || tunnel.type == "udp")
             {
-                if (CheckVisit(GetIP(tunnel.ip!), Convert.ToInt16(tunnel.dorp!)))
+                if (CheckVisit(GetIP(tunnel.ip!), Convert.ToInt16(tunnel.dorp!),tunnel.type))
                 {
                     return true;
                 }
@@ -209,16 +209,34 @@ namespace FRPAutoCheckService
         /// <param name="ip"></param>
         /// <param name="port"></param>
         /// <returns></returns>
-        private bool CheckVisit(string ip, int port)
+        private bool CheckVisit(string ip, int port,string type)
         {
-            TcpClient tcp = null;
+            //TcpClient tcp = null;
             try
             {
-                var ipa = IPAddress.Parse(ip);
-                var point = new IPEndPoint(ipa, port);
-                tcp = new TcpClient();
-                tcp.Connect(point);
-                return true;
+                //var ipa = IPAddress.Parse(ip);
+                //var point = new IPEndPoint(ipa, port);
+                //tcp = new TcpClient();
+                //tcp.Connect(point);
+                var options = new RestClientOptions("https://uapis.cn/api");
+                var client = new RestClient(options);
+                var request = new RestRequest("portstats");
+                request.AddParameter("host", ip, ParameterType.QueryString);
+                request.AddParameter("port", port, ParameterType.QueryString);
+                request.AddParameter("protocol", type, ParameterType.QueryString);
+                request.Method = Method.Get;
+                var response = client.Get(request);
+                JObject respJson = JObject.Parse(response.Content ?? "{}");
+                string code = respJson["code"]?.ToString();
+                if (code == "200")
+                {
+                    string portStatus = respJson["port_status"].ToString();
+                    if(portStatus == "open")
+                    {
+                        return true;
+                    }
+                }
+                return false;
             }
             catch (Exception)
             {
@@ -226,10 +244,10 @@ namespace FRPAutoCheckService
             }
             finally
             {
-                if (tcp != null)
-                {
-                    tcp.Close();
-                }
+                //if (tcp != null)
+                //{
+                //    tcp.Close();
+                //}
             }
         }
         /// <summary>
@@ -241,15 +259,37 @@ namespace FRPAutoCheckService
         {
             try
             {
-                var handler = new HttpClientHandler();
-                handler.ServerCertificateCustomValidationCallback += (a, b, c, d) => true;
-                handler.SslProtocols = System.Security.Authentication.SslProtocols.None;
-                HttpClient req = new HttpClient(handler);
-                req.Timeout = TimeSpan.FromSeconds(3);
-                var resp = req.GetAsync(url).Result;
-                if (resp.StatusCode != HttpStatusCode.NotFound)
+                //var handler = new HttpClientHandler();
+                //handler.ServerCertificateCustomValidationCallback += (a, b, c, d) => true;
+                //handler.SslProtocols = System.Security.Authentication.SslProtocols.None;
+                //HttpClient req = new HttpClient(handler);
+                //req.Timeout = TimeSpan.FromSeconds(3);
+                //var resp = req.GetAsync(url).Result;
+                var options = new RestClientOptions("https://uapis.cn/api")
                 {
-                    return true;
+                    ConfigureMessageHandler = (handler) =>
+                    new HttpClientHandler()
+                    {
+                        ServerCertificateCustomValidationCallback = (a, b, c, d) => true,
+                        SslProtocols = System.Security.Authentication.SslProtocols.None
+                    }
+                };
+                var client = new RestClient(options);
+                
+                var request = new RestRequest("urlstatuscode");
+                request.AddParameter("url", url, ParameterType.QueryString);
+                request.Method = Method.Get;
+                
+                var response = client.Get(request);
+                JObject respJson = JObject.Parse(response.Content ?? "{}");
+                string code = respJson["code"]?.ToString();
+                if (code == "200")
+                {
+                    string status = respJson["status"].ToString();
+                    if (status == "200" || status=="302" || status == "401")
+                    {
+                        return true;
+                    }
                 }
                 return false;
             }
@@ -268,7 +308,15 @@ namespace FRPAutoCheckService
         {
             //修改隧道节点
             
-            var options = new RestClientOptions("https://cf-v1.uapis.cn/api");
+            var options = new RestClientOptions("https://cf-v1.uapis.cn/api")
+            {
+                ConfigureMessageHandler = (handler) =>
+                new HttpClientHandler()
+                {
+                    ServerCertificateCustomValidationCallback = (a, b, c, d) => true,
+                    SslProtocols = System.Security.Authentication.SslProtocols.None
+                }
+            };
             var client = new RestClient(options);
             var request = new RestRequest("cztunnel.php");
             
