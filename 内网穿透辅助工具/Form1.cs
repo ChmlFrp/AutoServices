@@ -46,22 +46,7 @@ namespace 内网穿透辅助工具
         }
 
         
-        private void button2_Click(object sender, EventArgs e)
-        {
-            toolService.InstallService();
-        }
-        private void button3_Click(object sender, EventArgs e)
-        {
-            toolService.StartService();
-        }
-        private void button4_Click(object sender, EventArgs e)
-        {
-            toolService.StopService();
-        }
-        private void button5_Click(object sender, EventArgs e)
-        {
-            toolService.UninstallService();
-        }
+        
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
             //取消关闭窗口
@@ -399,6 +384,30 @@ namespace 内网穿透辅助工具
                     this.isAutoMysql_checkbox.Checked = false;
                 }
             }
+        }
+        
+        private void button2_Click_1(object sender, EventArgs e)
+        {
+            toolService.InstallService();
+            MessageBox.Show("安装成功");
+        }
+
+        private void button3_Click_1(object sender, EventArgs e)
+        {
+            toolService.StartService();
+            MessageBox.Show("启动成功");
+        }
+
+        private void button4_Click_1(object sender, EventArgs e)
+        {
+            toolService.StopService();
+            MessageBox.Show("停止成功");
+        }
+
+        private void button5_Click_1(object sender, EventArgs e)
+        {
+            toolService.UninstallService();
+            MessageBox.Show("卸载成功");
         }
     }
 }

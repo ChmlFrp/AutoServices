@@ -466,9 +466,11 @@ namespace FRPAutoCheckService
                     string line = myProcess.StandardOutput.ReadLine();
                     line = line.Replace(user.Usertoken, "usertoken");
                     CommonData.PrintLog(line);
-                    if (line.Contains("映射启动成功"))
+
+                    //启动成功或者启动失败都计数减一
+                    if (line.Contains("映射启动成功") || line.Contains("[W]"))
                     {
-                        this.tunnelStartingNum--;//启动完毕后
+                        if(this.tunnelStartingNum>0)this.tunnelStartingNum--;
                     }
                     if (line.Contains("already exists"))
                     {
