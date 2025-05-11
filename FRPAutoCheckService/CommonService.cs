@@ -18,6 +18,8 @@ using System.Net.Sockets;
 using System.Net.Http;
 using System.IO;
 using MySql.Data.MySqlClient;
+using System.ComponentModel;
+using System.Management;
 
 namespace FRPAutoCheckService
 {
@@ -345,7 +347,7 @@ namespace FRPAutoCheckService
         }
         
         /// <summary>
-        /// 利用handle.exe查找启动的frpc.exe程序,然后杀掉这些程序
+        /// 查找启动的frpc.exe程序,然后杀掉这些程序
         /// </summary>
         private void KillAllProcess()
         {
@@ -360,6 +362,7 @@ namespace FRPAutoCheckService
                 p.Kill();
             }
         }
+
         /// <summary>
         /// 关闭所有frp进程
         /// </summary>
@@ -369,7 +372,7 @@ namespace FRPAutoCheckService
             CommonData.SaveConfig();
         }
         /// <summary>
-        /// 强制杀死frp进程
+        /// 通过进程ID,杀死frp进程
         /// </summary>
         public void CloseFrp(int processId)
         {
@@ -377,6 +380,21 @@ namespace FRPAutoCheckService
             foreach (Process proc in myproc)
             {
                 if (proc.Id == processId)
+                {
+                    proc.Kill();
+                }
+            }
+        }
+        /// <summary>
+        /// 通过启动参数关闭frp进程
+        /// </summary>
+        /// <param name="processArgs"></param>
+        public void CloseFrp(string processArgs)
+        {
+            Process[] myproc = Process.GetProcesses();
+            foreach (Process proc in myproc)
+            {
+                if (proc.GetCommandLineArgs() == processArgs)
                 {
                     proc.Kill();
                 }
@@ -407,6 +425,7 @@ namespace FRPAutoCheckService
                 myProcess.StartInfo.CreateNoWindow = true;
                 myProcess.StartInfo.WorkingDirectory = exePath;
                 myProcess.StartInfo.Arguments = "-c " + tunnel.name + ".ini";
+                string frpArgs = $"\"{myProcess.StartInfo.FileName}\" {myProcess.StartInfo.Arguments}";
                 myProcess.Start();
                 tunnel.pid = myProcess.Id;
                 CommonData.SaveConfig();//保存配置文件
@@ -421,14 +440,15 @@ namespace FRPAutoCheckService
                     CommonData.PrintLog(line);
 
                     //启动成功或者启动失败都计数减一
-                    if (line.Contains("映射启动成功") || line.Contains("[W]"))
+                    if (line.Contains("映射启动成功"))
                     {
                         if(this.tunnelStartingNum>0)this.tunnelStartingNum--;
                     }
-                    if (line.Contains("already exists"))
+                    else if (line.Contains("already exists") || line.Contains("[W]"))
                     {
-                        //KillProcessByLockHunter();
-                        KillAllProcess();
+                        if (this.tunnelStartingNum > 0) this.tunnelStartingNum--;
+                        CloseFrp(frpArgs);
+                        ExecuteFrp(tunnelId);
                         break;
                     }
                 }
@@ -671,7 +691,7 @@ namespace FRPAutoCheckService
             //messageToSend.Sender = new MailboxAddress("唐鹏程", mailAccount);//发送人
             messageToSend.From.Add(new MailboxAddress("内网穿透辅助工具", mailAccount));//发送人
             messageToSend.Subject = mailTitle;//标题
-            messageToSend.Body = new TextPart(TextFormat.Plain) { Text = mailContent };//内容
+            messageToSend.Body = new TextPart(MimeKit.Text.TextFormat.Plain) { Text = mailContent };//内容
             messageToSend.To.Add(new MailboxAddress("", mailTo));//接收人
             using (var smtp = new SmtpClient())
             {
@@ -724,5 +744,49 @@ namespace FRPAutoCheckService
             return builder.ConnectionString;
         }
         
+    }
+    /// <summary>
+    /// 为 <see cref="Process"/> 类型提供扩展方法。
+    /// </summary>
+    public static class ProcessExtensions
+    {
+        /// <summary>
+        /// 获取一个正在运行的进程的命令行参数。
+        /// 与 <see cref="Environment.GetCommandLineArgs"/> 一样，使用此方法获取的参数是包含应用程序路径的。
+        /// 关于 <see cref="Environment.GetCommandLineArgs"/> 可参见：
+        /// .NET 命令行参数包含应用程序路径吗？https://blog.walterlv.com/post/when-will-the-command-line-args-contain-the-executable-path.html
+        /// </summary>
+        /// <param name="process">一个正在运行的进程。</param>
+        /// <returns>表示应用程序运行命令行参数的字符串。</returns>
+        public static string GetCommandLineArgs(this Process process)
+        {
+            if (process is null) throw new ArgumentNullException(nameof(process));
+
+            try
+            {
+                return GetCommandLineArgsCore();
+            }
+            catch (Win32Exception ex) when ((uint)ex.ErrorCode == 0x80004005)
+            {
+                // 没有对该进程的安全访问权限。
+                return string.Empty;
+            }
+            catch (InvalidOperationException)
+            {
+                // 进程已退出。
+                return string.Empty;
+            }
+
+            string GetCommandLineArgsCore()
+            {
+                using (var searcher = new ManagementObjectSearcher(
+                    "SELECT CommandLine FROM Win32_Process WHERE ProcessId = " + process.Id))
+                using (var objects = searcher.Get())
+                {
+                    var @object = objects.Cast<ManagementBaseObject>().SingleOrDefault();
+                    return @object?["CommandLine"]?.ToString() ?? "";
+                }
+            }
+        }
     }
 }
