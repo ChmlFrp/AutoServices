@@ -132,7 +132,7 @@
             this.tabControl1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(672, 507);
+            this.tabControl1.Size = new System.Drawing.Size(668, 507);
             this.tabControl1.TabIndex = 0;
             // 
             // tabPage1
@@ -147,7 +147,7 @@
             this.tabPage1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.tabPage1.Size = new System.Drawing.Size(664, 481);
+            this.tabPage1.Size = new System.Drawing.Size(660, 481);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "隧道列表";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -337,7 +337,7 @@
             this.tabPage3.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.tabPage3.Size = new System.Drawing.Size(664, 481);
+            this.tabPage3.Size = new System.Drawing.Size(660, 481);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "DDNS配置";
             this.tabPage3.UseVisualStyleBackColor = true;
@@ -365,7 +365,7 @@
             this.groupBox1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.groupBox1.Size = new System.Drawing.Size(665, 84);
+            this.groupBox1.Size = new System.Drawing.Size(645, 84);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "阿里云DDNS";
@@ -434,7 +434,7 @@
             this.tabPage4.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tabPage4.Name = "tabPage4";
             this.tabPage4.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.tabPage4.Size = new System.Drawing.Size(664, 481);
+            this.tabPage4.Size = new System.Drawing.Size(660, 481);
             this.tabPage4.TabIndex = 3;
             this.tabPage4.Text = "邮件配置";
             this.tabPage4.UseVisualStyleBackColor = true;
@@ -466,7 +466,7 @@
             this.groupBox2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.groupBox2.Size = new System.Drawing.Size(665, 149);
+            this.groupBox2.Size = new System.Drawing.Size(645, 149);
             this.groupBox2.TabIndex = 0;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "SMTP邮箱";
@@ -572,7 +572,7 @@
             this.tabPage2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.tabPage2.Size = new System.Drawing.Size(664, 481);
+            this.tabPage2.Size = new System.Drawing.Size(660, 481);
             this.tabPage2.TabIndex = 5;
             this.tabPage2.Text = "数据库配置";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -641,7 +641,7 @@
             this.groupBox3.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.groupBox3.Size = new System.Drawing.Size(666, 142);
+            this.groupBox3.Size = new System.Drawing.Size(645, 142);
             this.groupBox3.TabIndex = 0;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "mysql数据库";
@@ -811,7 +811,7 @@
             this.tabPage5.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tabPage5.Name = "tabPage5";
             this.tabPage5.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.tabPage5.Size = new System.Drawing.Size(664, 481);
+            this.tabPage5.Size = new System.Drawing.Size(660, 481);
             this.tabPage5.TabIndex = 4;
             this.tabPage5.Text = "日志";
             this.tabPage5.UseVisualStyleBackColor = true;
@@ -833,7 +833,7 @@
             this.textBox1.Multiline = true;
             this.textBox1.Name = "textBox1";
             this.textBox1.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textBox1.Size = new System.Drawing.Size(667, 266);
+            this.textBox1.Size = new System.Drawing.Size(645, 442);
             this.textBox1.TabIndex = 2;
             // 
             // menuStrip1
@@ -843,7 +843,7 @@
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Padding = new System.Windows.Forms.Padding(5, 1, 0, 1);
-            this.menuStrip1.Size = new System.Drawing.Size(672, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(668, 24);
             this.menuStrip1.TabIndex = 1;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -879,7 +879,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(672, 531);
+            this.ClientSize = new System.Drawing.Size(668, 531);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.menuStrip1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));

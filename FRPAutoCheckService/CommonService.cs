@@ -61,6 +61,7 @@ namespace FRPAutoCheckService
             if (tunnelStartingNum!=0)//frp隧道过多会拖慢启动速度,如果frp隧道还没有完全启动完毕则等待启动完成
             {
                 CommonData.PrintLog("frp隧道正在启动中,跳过检测!启动中的隧道数量:"+tunnelStartingNum);
+                tunnelStartingNum--;//每隔一分钟就减一
                 return;
             }
             if (string.IsNullOrEmpty(user.Usertoken))
@@ -86,7 +87,7 @@ namespace FRPAutoCheckService
                         //CommonData.PrintLog("隧道 " + tunnel.name + " 正常访问!");
                         continue;
                     }
-
+                    CommonData.PrintLog($"隧道 {tunnel.name} 离线,开始重新连接!");
                     string state = GetNodeStatus(tunnel.node);
                     if (state != null)
                     {
@@ -154,7 +155,7 @@ namespace FRPAutoCheckService
                     }
                     
                 }
-
+                
             }
         }
 
@@ -211,32 +212,18 @@ namespace FRPAutoCheckService
         /// <returns></returns>
         private bool CheckVisit(string ip, int port,string type)
         {
-            //TcpClient tcp = null;
+            TcpClient tcp = null;
             try
             {
-                //var ipa = IPAddress.Parse(ip);
-                //var point = new IPEndPoint(ipa, port);
-                //tcp = new TcpClient();
-                //tcp.Connect(point);
-                var options = new RestClientOptions("https://uapis.cn/api");
-                var client = new RestClient(options);
-                var request = new RestRequest("portstats");
-                request.AddParameter("host", ip, ParameterType.QueryString);
-                request.AddParameter("port", port, ParameterType.QueryString);
-                request.AddParameter("protocol", type, ParameterType.QueryString);
-                request.Method = Method.Get;
-                var response = client.Get(request);
-                JObject respJson = JObject.Parse(response.Content ?? "{}");
-                string code = respJson["code"]?.ToString();
-                if (code == "200")
-                {
-                    string portStatus = respJson["port_status"].ToString();
-                    if(portStatus == "open")
-                    {
-                        return true;
-                    }
-                }
-                return false;
+                var ipa = IPAddress.Parse(ip);
+                var point = new IPEndPoint(ipa, port);
+                tcp = new TcpClient();
+                tcp.ReceiveTimeout = 100;
+                tcp.SendTimeout = 100;
+                
+                tcp.Connect(point);
+                tcp.Close();
+                return true;
             }
             catch (Exception)
             {
@@ -244,10 +231,10 @@ namespace FRPAutoCheckService
             }
             finally
             {
-                //if (tcp != null)
-                //{
-                //    tcp.Close();
-                //}
+                if (tcp != null && tcp.Client!=null && tcp.Connected)
+                {
+                    tcp.Close();
+                }
             }
         }
         /// <summary>
@@ -259,37 +246,16 @@ namespace FRPAutoCheckService
         {
             try
             {
-                //var handler = new HttpClientHandler();
-                //handler.ServerCertificateCustomValidationCallback += (a, b, c, d) => true;
-                //handler.SslProtocols = System.Security.Authentication.SslProtocols.None;
-                //HttpClient req = new HttpClient(handler);
-                //req.Timeout = TimeSpan.FromSeconds(3);
-                //var resp = req.GetAsync(url).Result;
-                var options = new RestClientOptions("https://uapis.cn/api")
+                var handler = new HttpClientHandler();
+                handler.ServerCertificateCustomValidationCallback += (a, b, c, d) => true;
+                handler.SslProtocols = System.Security.Authentication.SslProtocols.None;
+                HttpClient req = new HttpClient(handler);
+                req.Timeout = TimeSpan.FromSeconds(3);
+                var resp = req.GetAsync(url).Result;
+                var status = resp.StatusCode;
+                if (status == HttpStatusCode.OK || status==HttpStatusCode.Unauthorized || status == HttpStatusCode.Found)
                 {
-                    ConfigureMessageHandler = (handler) =>
-                    new HttpClientHandler()
-                    {
-                        ServerCertificateCustomValidationCallback = (a, b, c, d) => true,
-                        SslProtocols = System.Security.Authentication.SslProtocols.None
-                    }
-                };
-                var client = new RestClient(options);
-                
-                var request = new RestRequest("urlstatuscode");
-                request.AddParameter("url", url, ParameterType.QueryString);
-                request.Method = Method.Get;
-                
-                var response = client.Get(request);
-                JObject respJson = JObject.Parse(response.Content ?? "{}");
-                string code = respJson["code"]?.ToString();
-                if (code == "200")
-                {
-                    string status = respJson["status"].ToString();
-                    if (status == "200" || status=="302" || status == "401")
-                    {
-                        return true;
-                    }
+                    return true;
                 }
                 return false;
             }
@@ -377,21 +343,7 @@ namespace FRPAutoCheckService
             }
             
         }
-        /// <summary>
-        /// 利用lockhunter杀死进程
-        /// </summary>
-        //private void KillProcessByLockHunter()
-        //{
-        //    string fileName = Path.Combine(AppDomain.CurrentDomain.BaseDirectory,"ChmlFrp","frpc.exe");
-        //    Process process = new Process();
-        //    process.StartInfo.FileName = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "LockHunter", "LockHunter.exe");
-        //    process.StartInfo.Arguments = $"-k -sm \"{fileName}\"";
-        //    process.StartInfo.UseShellExecute = false;
-        //    process.StartInfo.RedirectStandardOutput = true;
-        //    process.Start();
-        //    process.WaitForExit();
-        //    string outputProcess = process.StandardOutput.ReadToEnd();
-        //}
+        
         /// <summary>
         /// 利用handle.exe查找启动的frpc.exe程序,然后杀掉这些程序
         /// </summary>
@@ -457,6 +409,7 @@ namespace FRPAutoCheckService
                 myProcess.StartInfo.Arguments = "-c " + tunnel.name + ".ini";
                 myProcess.Start();
                 tunnel.pid = myProcess.Id;
+                CommonData.SaveConfig();//保存配置文件
                 //this.Invoke(new Action(() =>
                 //{
                 //    this.textBox1.Text += "进程ID" + myProcess.Id + "\r\n"; ;
@@ -550,15 +503,22 @@ namespace FRPAutoCheckService
             if (state == "success")
             {
                 JArray jArray = respJson["data"] as JArray;
+                var tempNodes = CommonData.config.nodes.ToDictionary(k => k.Key, v => v.Value);
+                CommonData.config.nodes.Clear();
                 foreach (var item in jArray)
                 {
                     Node node = new Node();
                     node.id = Convert.ToInt32(item["id"].ToString());
                     node.name = item["name"].ToString();
-                    
-                    if (CommonData.config.nodes.ContainsKey(node.id))
+                    string nodeGroup = item["nodegroup"].ToString();
+                    if (nodeGroup== "vip")
                     {
-                        Node temp = CommonData.config.nodes[node.id];
+                        node.name += $"({nodeGroup})";
+                    }
+
+                    if (tempNodes.ContainsKey(node.id))
+                    {
+                        Node temp = tempNodes[node.id];
                         node.level = temp.level;
                         CommonData.config.nodes[node.id] = node;
                     }
