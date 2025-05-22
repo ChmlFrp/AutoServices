@@ -20,6 +20,7 @@ using System.IO;
 using MySql.Data.MySqlClient;
 using System.ComponentModel;
 using System.Management;
+using System.Threading;
 
 namespace FRPAutoCheckService
 {
@@ -49,7 +50,7 @@ namespace FRPAutoCheckService
         /// <param name="e"></param>
         private void OnTimerTriggle(object sender, System.Timers.ElapsedEventArgs e)
         {
-            CommonData.PrintLog("定时器触发,开始检测隧道状态!");
+            //CommonData.PrintLog("定时器触发,开始检测隧道状态!");
             if (timer.Interval <= 1000)
             {
                 timer.Interval = 1000 * 60;//每分钟检测一次
@@ -63,7 +64,7 @@ namespace FRPAutoCheckService
             if (tunnelStartingNum!=0)//frp隧道过多会拖慢启动速度,如果frp隧道还没有完全启动完毕则等待启动完成
             {
                 CommonData.PrintLog("frp隧道正在启动中,跳过检测!启动中的隧道数量:"+tunnelStartingNum);
-                tunnelStartingNum--;//每隔一分钟就减一
+                tunnelStartingNum--;//每隔一分钟就减一,防止死循环
                 return;
             }
             if (string.IsNullOrEmpty(user.Usertoken))
@@ -90,9 +91,14 @@ namespace FRPAutoCheckService
                         continue;
                     }
                     CommonData.PrintLog($"隧道 {tunnel.name} 离线,开始重新连接!");
-                    string state = GetNodeStatus(tunnel.node);
+                    //string state = GetNodeStatus(tunnel.node);
+                    string state = CheckVisit(GetIP(tunnel.ip!), 7000, "tcp") ? "online" : "offline";//检测隧道节点是否在线
                     if (state != null)
                     {
+                        if(state == "offline")//2次检测确保隧道是真的离线了
+                        {
+                            state = CheckVisit(GetIP(tunnel.ip!), 7000, "tcp") ? "online" : "offline";//检测隧道节点是否在线
+                        }
                         if (state == "online")//如果服务器节点在线
                         {
                             //如果隧道节点在线,则直接启动
@@ -199,7 +205,7 @@ namespace FRPAutoCheckService
             }
             else if (tunnel.type == "tcp" || tunnel.type == "udp")
             {
-                if (CheckVisit(GetIP(tunnel.ip!), Convert.ToInt16(tunnel.dorp!),tunnel.type))
+                if (CheckVisit(GetIP(tunnel.ip!), Convert.ToInt32(tunnel.dorp!),tunnel.type))
                 {
                     return true;
                 }
@@ -214,28 +220,65 @@ namespace FRPAutoCheckService
         /// <returns></returns>
         private bool CheckVisit(string ip, int port,string type)
         {
-            TcpClient tcp = null;
             try
             {
                 var ipa = IPAddress.Parse(ip);
                 var point = new IPEndPoint(ipa, port);
-                tcp = new TcpClient();
-                tcp.ReceiveTimeout = 100;
-                tcp.SendTimeout = 100;
+                var timeout = 1000;
+                var time = PingAsync(ipa, port,type,timeout).Result;
                 
-                tcp.Connect(point);
-                tcp.Close();
+                if (time.TotalMilliseconds>=timeout || time == TimeSpan.Zero)
+                {
+                    return false;
+                }
                 return true;
             }
             catch (Exception)
             {
                 return false;
             }
-            finally
+        }
+        /// <summary>
+        /// 检测指定地址和端口的连通性
+        /// </summary>
+        /// <param name="address"></param>
+        /// <param name="port"></param>
+        /// <param name="protocolType"></param>
+        /// <param name="timeout"></param>
+        /// <param name="token"></param>
+        /// <returns></returns>
+        /// <exception cref="TimeoutException"></exception>
+        public static async Task<TimeSpan> PingAsync(IPAddress address, int port, string protocolType = "tcp", int timeout = 2000,
+            CancellationToken token = default)
+        {
+            using (var socket = new Socket(SocketType.Stream, protocolType=="tcp"?ProtocolType.Tcp:ProtocolType.Udp) { Blocking = true })
             {
-                if (tcp != null && tcp.Client!=null && tcp.Connected)
+                // initialize timing
+                var sw = new Stopwatch();
+                var timedTokenSource = CancellationTokenSource.CreateLinkedTokenSource(token);
+                timedTokenSource.CancelAfter(timeout);
+                sw.Start();
+
+                // try connecting to the server, with time limit
+                try
                 {
-                    tcp.Close();
+                    var connectTask = socket.ConnectAsync(address, port);
+                    await connectTask.WaitAsync(timedTokenSource.Token);
+                    // no TaskCanceledException thrown, not cancelled, so job done
+                    return sw.Elapsed;
+                }
+                catch (TaskCanceledException)
+                {
+                    // not cancelled by user -> timed out
+                    if (!token.IsCancellationRequested)
+                        throw new TimeoutException("Timed out waiting for response");
+
+                    // do nothing: cancelled by user
+                    return TimeSpan.Zero;
+                }
+                catch (AggregateException ex)
+                {
+                    throw ex.Unwrap();
                 }
             }
         }

@@ -188,6 +188,7 @@
     </Compile>
     <Compile Include="CommonData.cs" />
     <Compile Include="CommonService.cs" />
+    <Compile Include="Extensions.cs" />
     <Compile Include="MyConfig.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="ProjectInstaller.cs">
