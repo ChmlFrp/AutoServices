@@ -224,7 +224,19 @@ namespace 内网穿透辅助工具
             string? password = this.password_textbox.Text?.Trim();
             user.Username = username;
             user.Password = password;
-            commonService.Login(username, password);
+            try
+            {
+                var result = commonService.Login(username, password);
+                if (!result.Item1)
+                {
+                    MessageBox.Show(result.Item2);
+                    return;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"登录发生错误,此错误已强制忽略,如果不影响使用就不管他,错误堆栈:{ex.StackTrace}");
+            }
             CommonData.LoadConfig();
             ChangeTunnelData();
         }

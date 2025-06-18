@@ -97,7 +97,9 @@ namespace FRPAutoCheckService
                     {
                         if(state == "offline")//2次检测确保隧道是真的离线了
                         {
-                            state = CheckVisit(GetIP(tunnel.ip!), 7000, "tcp") ? "online" : "offline";//检测隧道节点是否在线
+                            //如果节点离线则,线程阻塞3秒钟,再检测一次
+                            Thread.Sleep(3000);
+                            state = GetNodeStatus(tunnel.node);//检测隧道节点是否在线
                         }
                         if (state == "online")//如果服务器节点在线
                         {
@@ -233,8 +235,9 @@ namespace FRPAutoCheckService
                 }
                 return true;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                //CommonData.PrintLog($"测试{ip}:{port} 连接失败!,异常信息:{ex.Message}:{ex.StackTrace}");
                 return false;
             }
         }
@@ -517,7 +520,12 @@ namespace FRPAutoCheckService
             if (state == "success")
             {
                 JObject nodeData = respJson["data"] as JObject;
-                return nodeData["state"].ToString();
+                string nodeState = nodeData["state"]?.ToString();
+                if (nodeState == "offline")
+                {
+                    CommonData.PrintLog($"节点 {nodeName } 离线!,接口返回信息:{nodeData.ToString()}");
+                }
+                return nodeState;
             }
             return null;
         }
@@ -528,7 +536,7 @@ namespace FRPAutoCheckService
         /// </summary>
         /// <param name="username"></param>
         /// <param name="password"></param>
-        public void Login(string username, string password)
+        public (bool,string) Login(string username, string password)
         {
             var options = new RestClientOptions("http://cf-v2.uapis.cn");
             var client = new RestClient(options);
@@ -538,8 +546,12 @@ namespace FRPAutoCheckService
             request.Method = Method.Get;
             var response = client.Get(request);
             JObject respJson = JObject.Parse(response.Content ?? "{}");
+            if (!respJson.ContainsKey("state"))
+            {
+                return (false,"登录失败,请求v2接口失败!");
+            }
             string state = respJson["state"]?.ToString();
-            if (state == "success")
+            if (state !=null && state == "success")
             {
                 string token = respJson["data"]["usertoken"].ToString();
                 int userId = Convert.ToInt32(respJson["data"]["id"]);
@@ -550,6 +562,7 @@ namespace FRPAutoCheckService
             }
             CommonData.SaveConfig();
             CommonData.PrintLog("登录成功");
+            return (true, "登录成功,用户ID:" + CommonData.config.userId + ",用户Token:" + user.Usertoken);
         }
         /// <summary>
         /// 加载服务器节点
